@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap");
+$primary-font: "Readex Pro", sans-serif;
+$primary-color: rgb(14, 53, 65);
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $primary-font;
+  background-color: rgba(0, 30, 38, 1);
+}
+
+.home {
+  margin-top: 130px;
+}
+
+.parent-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.card {
+  flex: 0 0 33.333333%;
+  width: 300px;
+  height: 220px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 0.7rem 0.7rem;
+  border: 1px solid rgb(24, 64, 77);
+  border-radius: 4px;
+  background-color: rgb(14, 53, 65);
+  word-wrap: break-word;
+  h1 {
+    font-size: 20px;
+    margin-top: 3px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-wrap: break-word;
+  }
+  p {
+    color: #f1f5f9;
+    word-wrap: break-word;
+    text-align: left;
+    background-color: rgba(10, 39, 48, 0.767);
+    padding: 5px;
+    margin-top: 1px;
+    line-height: 1.26rem;
+    border-radius: 8px;
+  }
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  transition-duration: 0.3s;
+  box-shadow: 0 0 8px rgb(0 220 130 / 67%);
+}
+
+.card:hover {
+  box-shadow: 0 0 16px #00dc82;
+}
+.options {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  .right-options {
+    display: flex;
+    align-items: center;
+    input {
+      width: 20px;
+      height: 20px;
+      margin-right: 0;
+      color: red;
+    }
+
+    .option-button {
+      button {
+        width: 25px;
+        height: 25px;
+        margin-left: 5px;
+        color: #f1f5f9;
+        background-color: #00dc82;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #00b96cfb;
+      }
+    }
+  }
+}
+.note-done {
+  color: rgba(0, 220, 130, 1);
+  font-size: 20px !important;
+}
+
+.login-register-form {
+  margin-top: 40px !important;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 10px;
+  input {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    font-family: $primary-font;
+    color: #475569;
+  }
+  button {
+    height: 40px;
+    font-size: 18px;
+    font-family: $primary-font;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #00dc82;
+    border: none;
+    color: white;
+  }
+  button:hover {
+    background-color: #00b469;
+  }
+  #note {
+    padding: 10px;
+    margin: 10px 0;
+    font-family: $primary-font;
+    color: #475569;
+  }
+}
+
+.error {
+  color: #f43f5e;
+}
+
+.msg {
+  margin-top: 120px !important;
+  font-size: 20px;
+  color: #f1f5f9;
+}
+
+#nav {
+  background-color: rgba(10, 39, 48); /* Fallback color */
+  background-color: rgba(10, 39, 48, 0.767); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  z-index: 2;
+  h1 {
+    color: #f1f5f9;
+  }
+  a {
+    color: #64748b;
+  }
+  a:hover {
+    color: #42b983;
+  }
+  .right-options {
+    margin-right: 50px;
+  }
+}
+.footer-msg {
+  margin-top: 50px;
+  font-size: 18px;
+  color: #cbd5e1;
+  .fa-heart {
+    color: #00b469;
+  }
+}
+#navmob {
+  display: none;
+}
+
+.info {
+  margin-top: 20px;
+  background-color: $primary-color;
+}
+@media (max-width: 500px) {
+    .home {
+        margin-top: 50px;
+    }
+  #nav {
+    display: none;
+  }
+  #navmob {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 17px;
+      color: #2c3e50;
+      margin-left: 15px;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+    a:hover {
+        color: #42b983;
+      }
+  }
+  .card {
+    margin: 10px auto;
+  }
+  .right-options {
+    input {
+      height: 25px !important;
+      width: 25px !important;
+    }
+    .option-button {
+      button {
+        height: 30px !important;
+        width: 30px !important;
+      }
+    }
+  }
+
+  #nav {
+    .right-options {
+      margin-right: 10px;
+    }
+    h1 {
+      font-size: 25px;
+    }
+  }
+
+  .msg {
+      margin-top: 60px !important;
+  }
+}

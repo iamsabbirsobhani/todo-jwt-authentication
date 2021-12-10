@@ -1,26 +1,80 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <div style="display: flex;">
+      <router-link to="/"><h1>To Do</h1></router-link>
+    </div>
+    <div class="right-options">
+      <router-link v-if="loggedIn" to="/">Home</router-link>
+      <router-link v-if="loggedIn" to="/addnote"><i class="fas fa-plus-circle"></i> Add note</router-link>
+      <router-link v-if="!loggedIn" to="/login">Login</router-link>
+      <router-link v-if="loggedIn" @click="loggedOut" to="/login">Logout</router-link>
+      <router-link v-if="!loggedIn" to="/register">Register</router-link>
+    </div>
   </div>
-  <router-view/>
+
+  <div id="navmob">
+    <div style="display: flex;">
+      <router-link to="/"><h1>To Do</h1></router-link>
+    </div>
+    <div class="right-options">
+      <router-link v-if="loggedIn" to="/">Home</router-link>
+      <router-link v-if="loggedIn" to="/addnote"><i class="fas fa-plus-circle"></i> Add note</router-link>
+      <router-link v-if="!loggedIn" to="/login">Login</router-link>
+      <router-link v-if="loggedIn" @click="loggedOut" to="/login">Logout</router-link>
+      <router-link v-if="!loggedIn" to="/register">Register</router-link>
+    </div>
+  </div>
+  <router-view />
+  <Footer/>
 </template>
+
+<script setup>
+import { computed, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from 'vue-router';
+import Footer from './components/Footer.vue'
+const store = useStore();
+const route = useRouter();
+const loggedIn = computed(() => {
+  return store.state.auth.status.loggedIn;
+});
+const loggedOut = () => {
+   store.dispatch('auth/logout');
+   route.push({name: "Login"});
+};
+onMounted(() => {
+  document.title = "To Do | App";
+})
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  // font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-
+#navmob {
+  display: none !important;
+}
 #nav {
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+    position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  padding-left: 0.75rem;
+    padding-right: 0.75rem;
 
   a {
+    text-decoration: none;
     font-weight: bold;
     color: #2c3e50;
+    margin-left: 15px;
 
     &.router-link-exact-active {
       color: #42b983;
