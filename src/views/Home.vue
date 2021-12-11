@@ -1,32 +1,29 @@
 <template>
   <div class="home">
-    <div class="parent-card">
+    <div v-if="notes" class="parent-card">
       <div v-for="note in notes" :key="note.id">
         <div class="card">
           <div class="options">
             <div class="right-options">
-              <input
-                v-if="disable"
-                type="checkbox"
-                name="done"
-                :id="note.id"
-                @click="handleDone(note.id, note.done)"
-                v-model="note.done"
-                disabled
-              />
-              <input
-                v-else
-                type="checkbox"
-                name="done"
-                :id="note.id"
-                @click="handleDone(note.id, note.done)"
-                v-model="note.done"
-              />
               <div class="option-button">
-                <button @click="handleDelete(note.id)">
-                  <i class="done-icon far fa-trash-alt"></i>
+                <button
+                  :id="note.id"
+                  v-if="!note.done"
+                  @click="handleDone(note.id, note.done)"
+                >
+                  <i class="far fa-check-square"></i>
                 </button>
-                <button><i class="fas fa-edit"></i></button>
+                <button
+                  :id="note.id"
+                  v-else
+                  @click="handleDone(note.id, note.done)"
+                >
+                  <i class="fas fa-check-square"></i>
+                </button>
+
+                <button @click="showEdit(note.id)">
+                  <i class="fas fa-edit"></i>
+                </button>
                 <button @click="showInfo(note.id)">
                   <i class="fas fa-info-circle"></i>
                 </button>
@@ -38,17 +35,31 @@
           </div>
 
           <div v-if="info.isShow && info.id == note.id" class="info">
-            <p>{{ format(new Date(note.createdAt), "PPp") }}</p>
+            <p>Created: {{ format(new Date(note.createdAt), "PPp") }}</p>
+            <p v-if="note.updatedAt > note.createdAt">
+              Updated: {{ format(new Date(note.updatedAt), "PPp") }}
+            </p>
             <p>By {{ note.user.name }}</p>
+            <button id="delete-btn" @click="handleDelete(note.id)">
+              <i class="done-icon far fa-trash-alt"></i>
+            </button>
           </div>
-
           <div v-else>
-            <h1>{{ note.title }}</h1>
-            <p>{{ note.note }}</p>
+            <EditCard
+              v-if="showEditCard.show && showEditCard.id == note.id"
+              :note="note"
+              :id="note.id"
+              @editDone="editDone"
+            />
+            <div v-else>
+              <h1>{{ note.title }}</h1>
+              <p>{{ note.note }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <Spinner v-else />
   </div>
 </template>
 
@@ -57,12 +68,19 @@
 import { onMounted, ref } from "@vue/runtime-core";
 import service from "../services/user.service.js";
 import { format } from "date-fns";
+import Spinner from "../components/Spinner.vue";
+import EditCard from "../components/EditCard.vue";
 export default {
+  components: { Spinner, EditCard },
   name: "Home",
   setup() {
     const notes = ref(null);
     const done = ref();
-    const disable = ref(false);
+    const showEditCard = ref({
+      show: false,
+      id: null,
+      temp: null,
+    });
     const info = ref({ isShow: false, id: null });
     const getNotes = () => {
       service.getNotes().then((res) => {
@@ -70,22 +88,25 @@ export default {
       });
     };
 
+    const editDone = () => {
+      getNotes();
+      showEditCard.value.show = false;
+    };
+
     const handleDone = (noteId, status) => {
       done.value = !status;
-      disable.value = true;
-      console.log(done.value, noteId);
+      // console.log(done.value, noteId);
 
       let note = {
         id: noteId,
         done: done.value,
       };
-      service.isNoteDone(note).then((res) => {
-        console.log(res);
+      service.isNoteDone(note).then(() => {
+        // console.log(res);
       });
-
-      // getNotes();
+      // console.log(note);
+      getNotes();
       note = null;
-      disable.value = false;
     };
 
     const handleDelete = (noteId) => {
@@ -103,6 +124,7 @@ export default {
 
     const noteid = ref(null);
     const showInfo = (id) => {
+      showEditCard.value.show = false;
       if (id === noteid.value) {
         info.value.isShow = !info.value.isShow;
         info.value.id = id;
@@ -114,15 +136,30 @@ export default {
       noteid.value = id;
     };
 
+    const showEdit = (id) => {
+      info.value.isShow = false;
+      if (id === showEditCard.value.temp) {
+        showEditCard.value.show = !showEditCard.value.show;
+        showEditCard.value.id = id;
+      } else {
+        showEditCard.value.show = true;
+        showEditCard.value.id = id;
+      }
+
+      showEditCard.value.temp = id;
+    };
+
     return {
       notes,
       done,
       handleDone,
-      disable,
       handleDelete,
       format,
       showInfo,
       info,
+      showEditCard,
+      showEdit,
+      editDone,
     };
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <p class="msg">Please Add a note</p>
+  <p class="msg">Please add a note</p>
 
   <form @submit.prevent="handleAdd" class="login-register-form">
     <input
@@ -40,11 +40,11 @@ export default {
         title: title.value,
         note: note.value,
       };
-      service.addNote(addnote).then((res) => {
-        console.log(res);
+      service.addNote(addnote).then(() => {
+        // console.log(res);
         route.push({ name: "Home" });
       });
-      console.log(addnote);
+      // console.log(addnote);
     };
 
     return { handleAdd, title, note };

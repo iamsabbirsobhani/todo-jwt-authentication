@@ -1,7 +1,7 @@
 <template>
-<p class="msg">Please Register</p>
+<p class="msg">Please register</p>
   <form @submit.prevent="handleRegister" class="login-register-form">
-    <input type="text" name="name" v-model="name" placeholder="name" required />
+    <input type="text" name="name" maxlength="7" v-model="name" placeholder="name" required />
     <input
       type="email"
       name="email"
@@ -53,7 +53,6 @@ export default {
           console.log(err);
         }
       );
-      console.log(user);
     };
 
     return { name, email, password, handleRegister, error };

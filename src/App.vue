@@ -2,6 +2,7 @@
   <div id="nav">
     <div style="display: flex;">
       <router-link to="/"><h1>To Do</h1></router-link>
+      <h1 id="profilename" v-if="loggedIn">&nbsp;{{name}}</h1>
     </div>
     <div class="right-options">
       <router-link v-if="loggedIn" to="/">Home</router-link>
@@ -15,6 +16,7 @@
   <div id="navmob">
     <div style="display: flex;">
       <router-link to="/"><h1>To Do</h1></router-link>
+      <h1 id="profilename" v-if="loggedIn">&nbsp; {{name}}</h1>
     </div>
     <div class="right-options">
       <router-link v-if="loggedIn" to="/">Home</router-link>
@@ -29,19 +31,26 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from 'vue-router';
 import Footer from './components/Footer.vue'
 const store = useStore();
+
 const route = useRouter();
 const loggedIn = computed(() => {
   return store.state.auth.status.loggedIn;
 });
+const name = computed(() => {
+  return store.state.auth.name;
+});
+
+
 const loggedOut = () => {
    store.dispatch('auth/logout');
    route.push({name: "Login"});
 };
+
 onMounted(() => {
   document.title = "To Do | App";
 })

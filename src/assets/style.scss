@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap");
 $primary-font: "Readex Pro", sans-serif;
 $primary-color: rgb(14, 53, 65);
+$background: rgba(10, 39, 48);
+$primary-font-color: #f1f5f9;
 body {
   margin: 0;
   padding: 0;
@@ -177,10 +179,98 @@ body {
   margin-top: 20px;
   background-color: $primary-color;
 }
-@media (max-width: 500px) {
-    .home {
-        margin-top: 50px;
+
+.spinner {
+  color: $primary-font-color;
+  font-size: 16px;
+}
+
+#profilename {
+  color: #10b981 !important;
+}
+
+.edit-parent {
+  .edit-form {
+    input {
+      border: none;
+      outline: none;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 5px;
+      background-color: #0e3541;
+      color: $primary-font-color;
+      font-family: $primary-font;
     }
+  }
+  button {
+    height: 30px;
+    width: 100px;
+    font-size: 14px;
+    font-family: $primary-font;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #00dc82;
+    border: none;
+    border-radius: 8px;
+    color: white;
+  }
+  button:hover {
+    background-color: #00b469;
+  }
+  #editArea {
+    margin-top: 4px;
+    background-color: $background;
+    border: none;
+    resize: none;
+    color: $primary-font-color;
+    font-family: $primary-font;
+    line-height: 1.26rem;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 8px;
+    height: 100px;
+  }
+  #editArea:visited {
+    offset: none;
+    outline: none;
+    border: none;
+  }
+  #editArea:focus {
+    offset: none;
+    outline: none;
+    border: none;
+  }
+  #editArea:active {
+    offset: none;
+    outline: none;
+    border: none;
+  }
+  //   a:visited { ... }
+  // a:focus { ... }
+  // a:hover { ... }
+  // a:active { ... }
+}
+
+#delete-btn {
+  height: 30px;
+  width: 50px;
+  font-size: 18px;
+  font-family: $primary-font;
+  cursor: pointer;
+  background-color: #00dc82;
+  border: none;
+  border-radius: 4px;
+  color: white;
+}
+#delete-btn:hover {
+  background-color: #00b469;
+}
+
+@media (max-width: 500px) {
+  .home {
+    margin-top: 50px;
+  }
   #nav {
     display: none;
   }
@@ -206,8 +296,8 @@ body {
       }
     }
     a:hover {
-        color: #42b983;
-      }
+      color: #42b983;
+    }
   }
   .card {
     margin: 10px auto;
@@ -235,6 +325,6 @@ body {
   }
 
   .msg {
-      margin-top: 60px !important;
+    margin-top: 60px !important;
   }
 }
