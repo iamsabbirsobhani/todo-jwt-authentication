@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-if="notes" class="parent-card">
-      <div v-for="note in notes" :key="note.id">
+      <div v-for="note in notes.rows" :key="note.id">
         <div class="card">
           <div class="options">
             <div class="right-options">
@@ -60,6 +60,18 @@
       </div>
     </div>
     <Spinner v-else />
+    <div class="pagination" v-if="notes">
+      <a
+        v-for="page in notes.page"
+        :key="page"
+        class="pages"
+        style="color: white"
+      >
+        <div class="page" @click="handlePage(page)">
+          {{ page }}
+        </div>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -82,8 +94,8 @@ export default {
       temp: null,
     });
     const info = ref({ isShow: false, id: null });
-    const getNotes = () => {
-      service.getNotes().then((res) => {
+    const getNotes = (page) => {
+      service.getNotes(page).then((res) => {
         notes.value = res;
       });
     };
@@ -149,6 +161,11 @@ export default {
       showEditCard.value.temp = id;
     };
 
+    const handlePage = (page) => {
+      console.log(page);
+      getNotes(page);
+    };
+
     return {
       notes,
       done,
@@ -160,6 +177,7 @@ export default {
       showEditCard,
       showEdit,
       editDone,
+      handlePage,
     };
   },
 };
