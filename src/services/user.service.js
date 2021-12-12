@@ -21,55 +21,36 @@ class UserService {
         }
       });
     } else {
-      let url = "https://todos-note.herokuapp.com/api/auth/notes/page/"
-      return authService.verifyToken(user.accessToken).then((res) => {
-        if (res.data) {
-          return fetch(url + page, { headers: authHeader() })
-            .then((res) => res.json())
-            .then((getData) => {
-              return getData;
-            });
-        } else {
-          return;
-        }
-      });
+      let url = "https://todos-note.herokuapp.com/api/auth/notes/page/";
+      return fetch(url + page, { headers: authHeader() })
+        .then((res) => res.json())
+        .then((getData) => {
+          return getData;
+        });
     }
   }
   addNote(note) {
     var newNote = { ...note };
-
     let user = JSON.parse(localStorage.getItem("user"));
     newNote.userId = user.id;
     newNote.done = false;
-    return authService.verifyToken(user.accessToken).then((res) => {
-      if (res.data) {
-        return axios
-          .post("https://todos-note.herokuapp.com/api/addnote", newNote, {
-            headers: authHeader(),
-          })
-          .then((res) => {
-            return res;
-          });
-      } else {
-        return;
-      }
-    });
+    return axios
+      .post("https://todos-note.herokuapp.com/api/addnote", newNote, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        return res;
+      });
   }
+
   isNoteDone(note) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    return authService.verifyToken(user.accessToken).then((res) => {
-      if (res.data) {
-        return axios
-          .post("https://todos-note.herokuapp.com/api/isnotedone", note, {
-            headers: authHeader(),
-          })
-          .then((res) => {
-            return res;
-          });
-      } else {
-        return;
-      }
-    });
+    return axios
+      .post("https://todos-note.herokuapp.com/api/isnotedone", note, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        return res;
+      });
   }
   deleteNote(note) {
     return fetch("https://todos-note.herokuapp.com/api/deletenote/" + note.id, {
@@ -82,20 +63,13 @@ class UserService {
   }
 
   update(note) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    return authService.verifyToken(user.accessToken).then((res) => {
-      if (res.data) {
-        return axios
-          .post("https://todos-note.herokuapp.com/api/update/note", note, {
-            headers: authHeader(),
-          })
-          .then((res) => {
-            return res;
-          });
-      } else {
-        return;
-      }
-    });
+    return axios
+      .post("https://todos-note.herokuapp.com/api/update/note", note, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        return res;
+      });
   }
 }
 

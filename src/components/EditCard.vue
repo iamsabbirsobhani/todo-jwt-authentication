@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import service from '../services/user.service';
+import service from "../services/user.service";
 import { ref } from "@vue/reactivity";
 export default {
   props: ["note", "id"],
@@ -40,10 +40,11 @@ export default {
         title: noteTitle.value.value,
         note: noteValue.value.value,
       };
-      service.update(note).then(() => {
-        //   console.log(res);
+      service.update(note).then((res) => {
+        if (res.status == 200) {
+          context.emit("editDone");
+        }
       });
-        context.emit('editDone');
     };
 
     return { handleUpdate, noteTitle, noteValue };

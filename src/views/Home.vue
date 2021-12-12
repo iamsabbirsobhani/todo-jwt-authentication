@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-if="notes" class="parent-card">
+    <div v-if="showHomeNotes && notes" class="parent-card">
       <div v-for="note in notes.rows" :key="note.id">
         <div class="card">
           <div class="options">
@@ -28,6 +28,9 @@
                   <i class="fas fa-info-circle"></i>
                 </button>
               </div>
+            </div>
+            <div v-if="doneWaiting.wait && note.id == doneWaiting.id">
+              <Spinner :model="true"/>
             </div>
             <div v-if="note.done" class="note-done">
               <i class="fas fa-check-circle"></i>
@@ -61,14 +64,11 @@
     </div>
     <Spinner v-else />
     <div class="pagination" v-if="notes">
-      <a
-        v-for="page in notes.page"
-        :key="page"
-        class="pages"
-        style="color: white"
-      >
-        <div class="page" @click="handlePage(page)">
-          {{ page }}
+      <a v-for="(page, index) in notes.page" :key="page" style="color: white">
+        <div class="pages" @click="handlePage(index)">
+          <div class="page">
+            {{ index + 1 }}
+          </div>
         </div>
       </a>
     </div>
@@ -87,6 +87,12 @@ export default {
   name: "Home",
   setup() {
     const notes = ref(null);
+    const showHomeNotes = ref(true);
+    const doneWaiting = ref({
+      wait: false,
+      id: null,
+    });
+    const pageNo = ref(null);
     const done = ref();
     const showEditCard = ref({
       show: false,
@@ -94,30 +100,33 @@ export default {
       temp: null,
     });
     const info = ref({ isShow: false, id: null });
-    const getNotes = (page) => {
-      service.getNotes(page).then((res) => {
-        notes.value = res;
-      });
-    };
 
     const editDone = () => {
-      getNotes();
+      getNotes(pageNo.value ?? null, true);
       showEditCard.value.show = false;
     };
 
-    const handleDone = (noteId, status) => {
-      done.value = !status;
-      // console.log(done.value, noteId);
+    const getNotes = (page, show) => {
+      showHomeNotes.value = show;
+      service.getNotes(page).then((res) => {
+        notes.value = res;
+        showHomeNotes.value = true;
+      });
+    };
 
+    const handleDone = (noteId, status) => {
+      doneWaiting.value.wait = true;
+      doneWaiting.value.id = noteId;
+      done.value = !status;
       let note = {
         id: noteId,
         done: done.value,
       };
       service.isNoteDone(note).then(() => {
-        // console.log(res);
+        getNotes(pageNo.value ?? null, true);
+        doneWaiting.value.wait = false;
+        doneWaiting.value.id = null;
       });
-      // console.log(note);
-      getNotes();
       note = null;
     };
 
@@ -125,8 +134,9 @@ export default {
       let notes = {
         id: noteId,
       };
-      service.deleteNote(notes);
-      getNotes();
+      service.deleteNote(notes).then(() => {
+        getNotes(pageNo.value ?? null, true);
+      });
       notes = null;
     };
 
@@ -144,7 +154,6 @@ export default {
         info.value.isShow = true;
         info.value.id = id;
       }
-
       noteid.value = id;
     };
 
@@ -162,7 +171,7 @@ export default {
     };
 
     const handlePage = (page) => {
-      console.log(page);
+      pageNo.value = page;
       getNotes(page);
     };
 
@@ -178,6 +187,8 @@ export default {
       showEdit,
       editDone,
       handlePage,
+      showHomeNotes,
+      doneWaiting,
     };
   },
 };

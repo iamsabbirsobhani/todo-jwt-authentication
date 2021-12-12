@@ -1,5 +1,10 @@
 <template>
-  <div v-if="!timeOut" class="spinner">
+  <div v-if="model" class="spinner-light">
+    <div class="one-dot dot">.</div>
+    <div class="two-dot dot">.</div>
+    <div class="three-dot dot">.</div>
+  </div>
+  <div v-else-if="!timeOut" class="spinner">
     ({{ countDown }}) Loading... {{ countDowns }}
   </div>
   <div v-else class="error">Timeout please reload again.</div>
@@ -7,6 +12,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { defineProps } from "vue";
+
+defineProps({
+  model: Boolean,
+});
+
 const countDown = ref(null);
 const timeOut = ref(false);
 onMounted(() => {
