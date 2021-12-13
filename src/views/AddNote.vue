@@ -11,7 +11,7 @@
       placeholder="title"
       required
     />
-    <textarea
+    <!-- <textarea
       name="note"
       maxlength="150"
       size="150"
@@ -21,7 +21,8 @@
       rows="10"
       placeholder="type..."
       required
-    ></textarea>
+    ></textarea> -->
+    <QuillEditor theme="snow" contentType="html" v-model:content="note" placeholder="type here within 150 characters..." id="quill"/>
     <button>Add</button>
   </form>
 </template>
@@ -36,15 +37,17 @@ export default {
     const note = ref(null);
     const route = useRouter();
     const handleAdd = () => {
+      const newNote = note.value.slice(0, 150);
       const addnote = {
         title: title.value,
-        note: note.value,
+        // note: note.value.ops[0].insert,
+        note: newNote,
       };
       service.addNote(addnote).then(() => {
         // console.log(res);
         route.push({ name: "Home" });
       });
-      // console.log(addnote);
+      console.log(addnote);
     };
 
     return { handleAdd, title, note };

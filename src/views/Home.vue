@@ -56,7 +56,7 @@
             />
             <div v-else>
               <h1>{{ note.title }}</h1>
-              <p>{{ note.note }}</p>
+              <p v-html="note.note"></p>
             </div>
           </div>
         </div>

@@ -103,7 +103,7 @@ body {
   margin-top: 40px !important;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 500px;
   justify-content: center;
   margin: 20px auto;
   padding: 10px;
@@ -132,6 +132,18 @@ body {
     margin: 10px 0;
     font-family: $primary-font;
     color: #475569;
+  }
+}
+
+#quill {
+  // color: white !important;
+  background-color: white;
+  font-family: $primary-font !important;
+  span {
+    // color: white !important;
+  }
+  a {
+    font-family: $primary-font !important;
   }
 }
 
