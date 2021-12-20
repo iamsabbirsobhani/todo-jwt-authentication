@@ -327,6 +327,19 @@ body {
   }
 }
 
+#quill {
+  // color: white !important;
+  background-color: white;
+  font-family: $primary-font !important;
+  a {
+    font-family: $primary-font !important;
+  }
+}
+
+#noteHtml {
+  padding: 4px;
+}
+
 @media (max-width: 500px) {
   .home {
     margin-top: 50px;

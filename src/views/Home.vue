@@ -56,7 +56,12 @@
             />
             <div v-else>
               <h1>{{ note.title }}</h1>
-              <p>{{ note.note }}</p>
+              <div v-if="note.noteHtml">
+                <p id="noteHtml" v-html="note.noteHtml"></p>
+              </div>
+              <div v-else>
+                <p>{{ note.note }}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -12,16 +12,36 @@
       required
     />
     <textarea
+      v-if="form == 'Raw'"
       name="note"
-      maxlength="150"
+      :maxlength="form == 'HTML' ? 500 : 150"
       size="150"
       v-model="note"
       id="note"
       cols="30"
       rows="10"
-      placeholder="type... (within 150 characters)"
+      :placeholder="
+        form == 'HTML'
+          ? 'type... (within 500 characters)'
+          : 'type... (within 150 characters)'
+      "
       required
     ></textarea>
+    <QuillEditor
+      v-else
+      theme="snow"
+      contentType="html"
+      toolbar="full"
+      v-model:content="note"
+      placeholder="type here within 500 characters..."
+      id="quill"
+    />
+    <div>
+      <el-radio-group v-model="form" fill="#599EFF" text-color="#4ade80">
+        <el-radio label="Raw"></el-radio>
+        <el-radio label="HTML"></el-radio>
+      </el-radio-group>
+    </div>
     <button>Add</button>
   </form>
 </template>
@@ -35,20 +55,27 @@ export default {
   setup() {
     const title = ref(null);
     const note = ref(null);
+    const form = ref("Raw");
     const route = useRouter();
     const handleAdd = () => {
       const addnote = {
         title: title.value,
-        note: note.value,
       };
+      if (form.value == "Raw") {
+        addnote.note = note.value;
+      }
+      if (form.value == "HTML") {
+        addnote.note = "";
+        addnote.noteHtml = note.value;
+      }
       service.addNote(addnote).then(() => {
         route.push({ name: "Home" });
       });
     };
 
-    return { handleAdd, title, note };
+    return { handleAdd, title, note, form };
   },
 };
 </script>
 
-<style></style>
+<style lang="scss"></style>

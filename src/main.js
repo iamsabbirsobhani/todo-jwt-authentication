@@ -1,4 +1,6 @@
 import { createApp } from "vue";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -15,12 +17,14 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 library.add(far);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
-app.component('QuillEditor', QuillEditor);
+app.component("QuillEditor", QuillEditor);
+app.use(ElementPlus);
 app.use(store);
 app.use(router);
 app.mount("#app");

@@ -12,12 +12,16 @@
       <textarea
         ref="noteValue"
         name="note"
-        maxlength="150"
+        :maxlength="note.noteHtml ? 500 : 150"
         size="150"
         id="editArea"
         cols="30"
-        placeholder="type..."
-        :value="note.note"
+        :placeholder="
+          note.noteHtml
+            ? 'type... (within 500 characters)'
+            : 'type... (within 150 characters)'
+        "
+        :value="note.note || note.noteHtml"
         required
       ></textarea>
       <button>Done</button>
@@ -38,8 +42,14 @@ export default {
       const note = {
         id: props.id,
         title: noteTitle.value.value,
-        note: noteValue.value.value,
       };
+      if (props.note.note) {
+        note.note = noteValue.value.value;
+      }
+      if (props.note.noteHtml) {
+        note.note = "";
+        note.noteHtml = noteValue.value.value;
+      }
       service.update(note).then((res) => {
         if (res.status == 200) {
           context.emit("editDone");
