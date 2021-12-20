@@ -19,7 +19,7 @@
       id="note"
       cols="30"
       rows="10"
-      placeholder="type..."
+      placeholder="type here within 150 characters..."
       required
     ></textarea>
     <button>Add</button>
