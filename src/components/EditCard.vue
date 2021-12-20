@@ -7,23 +7,25 @@
         id="text"
         :value="note.title"
         placeholder="title"
+        maxlength="45"
         required
       />
+        <!-- :maxlength="note.noteHtml ? 500 : 150" -->
       <textarea
         ref="noteValue"
         name="note"
-        :maxlength="note.noteHtml ? 500 : 150"
         size="150"
         id="editArea"
         cols="30"
-        :placeholder="
-          note.noteHtml
-            ? 'type... (within 500 characters)'
-            : 'type... (within 150 characters)'
-        "
+        placeholder="type..."
         :value="note.note || note.noteHtml"
         required
       ></textarea>
+        <!-- :placeholder="
+          note.noteHtml
+            ? 'type... (within 500 characters)'
+            : 'type... (within 150 characters)'
+        " -->
       <button>Done</button>
     </form>
   </div>

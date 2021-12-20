@@ -3,6 +3,7 @@ $primary-font: "Readex Pro", sans-serif;
 $primary-color: rgb(14, 53, 65);
 $background: rgba(10, 39, 48);
 $primary-font-color: #f1f5f9;
+$primary-btn-color: #00dc82;
 body {
   margin: 0;
   padding: 0;
@@ -26,7 +27,8 @@ body {
   position: relative;
   flex: 0 0 33.333333%;
   width: 300px;
-  height: 220px;
+  height: 325px;
+  overflow: hidden;
   margin-left: 20px;
   margin-bottom: 20px;
   padding: 0.7rem 0.7rem;
@@ -49,8 +51,11 @@ body {
     background-color: rgba(10, 39, 48, 0.767);
     padding: 5px;
     margin-top: 1px;
+    margin-bottom: 8px;
     line-height: 1.26rem;
     border-radius: 8px;
+    max-height: 200px;
+    overflow: hidden;
   }
   transition-property: box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -263,7 +268,7 @@ body {
     padding: 5px;
     font-size: 16px;
     border-radius: 8px;
-    height: 100px;
+    height: 200px;
   }
   #editArea:visited {
     offset: none;
@@ -312,6 +317,7 @@ body {
     width: 50px;
     height: 50px;
     background-color: #00b469;
+    margin: 5px 0;
     margin-left: 10px;
     border-radius: 7px;
   }
@@ -338,8 +344,89 @@ body {
 
 #noteHtml {
   padding: 4px;
+  max-height: 220px;
+  overflow: hidden;
+}
+#seeMore {
+  margin: 0;
+  float: right;
+  color: $primary-font-color;
+  cursor: pointer;
+  width: max-content;
+  transition: all 0.24s;
+  font-size: 16px;
+}
+#seeMore:hover {
+  color: $primary-btn-color;
 }
 
+.details-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  // background-color: rgba(143, 143, 143, 0.651);
+  overflow-x: scroll;
+  scrollbar-color: rgba(255, 0, 0, 0);
+  background-color: white;
+  h1 {
+    color: #1e293b;
+  }
+  #detailsPost {
+    padding: 10px;
+    p {
+      background-color: white;
+      color: #1e293b;
+      max-height: max-content;
+      overflow: unset;
+      line-height: 1.5rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      word-wrap: break-word;
+    }
+    .details {
+      p {
+        background-color: white;
+        color: #1e293b;
+        max-height: max-content;
+        overflow: unset;
+        font-family: monospace;
+        line-height: 1px;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+.details-card::-webkit-scrollbar {
+  display: none;
+}
+
+#closeButton {
+  background-color: #f43f5e;
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 25px;
+  cursor: pointer;
+}
+#closeButton:hover {
+  background-color: #be123c;
+}
+#navbarDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  h1 {
+    margin: 0;
+    color: $primary-color;
+  }
+}
 @media (max-width: 500px) {
   .home {
     margin-top: 50px;

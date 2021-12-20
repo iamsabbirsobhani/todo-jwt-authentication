@@ -57,10 +57,39 @@
             <div v-else>
               <h1>{{ note.title }}</h1>
               <div v-if="note.noteHtml">
-                <p id="noteHtml" v-html="note.noteHtml"></p>
+                <div v-if="note.noteHtml.length > 150">
+                  <p
+                    id="noteHtml"
+                    v-html="note.noteHtml.slice(0, 250) + `...`"
+                  ></p>
+                  <h5 id="seeMore" @click="seeMoreDetail(note.id)">
+                    See more...
+                  </h5>
+                  <Details
+                    v-if="seeMore && seeDetials.id == note.id"
+                    @closeDetails="closeDetails"
+                    :notes="note"
+                  />
+                </div>
+                <div v-else>
+                  <p id="noteHtml" v-html="note.noteHtml"></p>
+                </div>
               </div>
               <div v-else>
-                <p>{{ note.note }}</p>
+                <div v-if="note.note.length > 150">
+                  <p>{{ note.note.slice(0, 330) }}...</p>
+                  <h5 id="seeMore" @click="seeMoreDetail(note.id)">
+                    See more...
+                  </h5>
+                  <Details
+                    v-if="seeMore && seeDetials.id == note.id"
+                    @closeDetails="closeDetails"
+                    :notes="note"
+                  />
+                </div>
+                <div v-else>
+                  <p>{{ note.note }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -78,6 +107,7 @@
       </a>
     </div>
   </div>
+  <!-- <Details v-if="seeMore" @closeDetails="closeDetails" :notes="notes" /> -->
 </template>
 
 <script>
@@ -87,12 +117,15 @@ import service from "../services/user.service.js";
 import { format } from "date-fns";
 import Spinner from "../components/Spinner.vue";
 import EditCard from "../components/EditCard.vue";
+import Details from "../components/Details.vue";
 export default {
-  components: { Spinner, EditCard },
+  components: { Spinner, EditCard, Details },
   name: "Home",
   setup() {
     const notes = ref(null);
     const showHomeNotes = ref(true);
+    const seeMore = ref(false);
+    const seeDetials = ref({ id: null });
     const doneWaiting = ref({
       wait: false,
       id: null,
@@ -180,6 +213,16 @@ export default {
       getNotes(page);
     };
 
+    const closeDetails = () => {
+      seeMore.value = false;
+    };
+
+    const seeMoreDetail = (id) => {
+      console.log(id);
+      seeDetials.value.id = id;
+      seeMore.value = true;
+    };
+
     return {
       notes,
       done,
@@ -194,6 +237,10 @@ export default {
       handlePage,
       showHomeNotes,
       doneWaiting,
+      seeMore,
+      closeDetails,
+      seeMoreDetail,
+      seeDetials,
     };
   },
 };

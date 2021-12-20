@@ -11,22 +11,23 @@
       placeholder="title (within 45 characters)"
       required
     />
+      <!-- :maxlength="form == 'HTML' ? 500 : 500" -->
     <textarea
       v-if="form == 'Raw'"
       name="note"
-      :maxlength="form == 'HTML' ? 500 : 150"
       size="150"
       v-model="note"
       id="note"
       cols="30"
       rows="10"
-      :placeholder="
+      placeholder="type..."
+      required
+    ></textarea>
+      <!-- :placeholder="
         form == 'HTML'
           ? 'type... (within 500 characters)'
           : 'type... (within 150 characters)'
-      "
-      required
-    ></textarea>
+      " -->
     <QuillEditor
       v-else
       theme="snow"
