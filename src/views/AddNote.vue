@@ -1,7 +1,7 @@
 <template>
   <p class="msg">Please add a note</p>
 
-  <form @submit.prevent="handleAdd" class="login-register-form">
+  <form @submit.prevent="handleAdd" class="login-register-form-addnote">
     <input
       type="text"
       maxlength="45"
