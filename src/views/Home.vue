@@ -30,7 +30,7 @@
               </div>
             </div>
             <div v-if="doneWaiting.wait && note.id == doneWaiting.id">
-              <Spinner :model="true"/>
+              <Spinner :model="true" />
             </div>
             <div v-if="note.done" class="note-done">
               <i class="fas fa-check-circle"></i>
@@ -56,7 +56,7 @@
             />
             <div v-else>
               <h1>{{ note.title }}</h1>
-              <p v-html="note.note"></p>
+              <p>{{ note.note }}</p>
             </div>
           </div>
         </div>
