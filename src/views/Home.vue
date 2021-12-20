@@ -218,7 +218,6 @@ export default {
     };
 
     const seeMoreDetail = (id) => {
-      console.log(id);
       seeDetials.value.id = id;
       seeMore.value = true;
     };
