@@ -8,7 +8,7 @@
       v-model="title"
       name="title"
       id="title"
-      placeholder="title"
+      placeholder="title (within 45 characters)"
       required
     />
     <textarea
@@ -19,7 +19,7 @@
       id="note"
       cols="30"
       rows="10"
-      placeholder="type here within 150 characters..."
+      placeholder="type... (within 150 characters)"
       required
     ></textarea>
     <button>Add</button>
