@@ -30,19 +30,51 @@
         <p>Updated: {{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
     </div>
+    <el-button class="details-edit-btn" v-if="notes.noteHtml" @click="showEditorTab" type="success"
+      >Edit</el-button
+    >
+    <Editor
+      @closeEditor="closeEditor"
+      @refreshNotesAfterEditDetails="refreshNotesAfterEditDetails"
+      v-if="notes.noteHtml && showEditor"
+      :note="notes"
+    />
   </div>
 </template>
 
 <script>
 import { format } from "date-fns";
-
+import Editor from "./Editor.vue";
+import { ref } from "@vue/reactivity";
 export default {
   props: ["notes"],
+  components: { Editor },
   setup(props, context) {
+    const showEditor = ref(false);
+
     const closeDetails = () => {
       context.emit("closeDetails");
     };
-    return { closeDetails, format };
+    const closeEditor = () => {
+      showEditor.value = false;
+    };
+
+    const refreshNotesAfterEditDetails = () => {
+      context.emit("refreshNotesAfterEditDetails");
+    };
+
+    const showEditorTab = () => {
+      showEditor.value = true;
+    };
+
+    return {
+      closeDetails,
+      format,
+      closeEditor,
+      showEditor,
+      showEditorTab,
+      refreshNotesAfterEditDetails,
+    };
   },
 };
 </script>

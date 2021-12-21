@@ -76,17 +76,18 @@
           <div v-else>
             <h1>{{ note.title }}</h1>
             <div v-if="note.noteHtml">
-              <div v-if="note.noteHtml.length > 150">
+              <div v-if="note.noteHtml.length > 50">
                 <p
                   id="noteHtml"
-                  v-html="note.noteHtml.slice(0, 280) + `...`"
+                  v-html="note.noteHtml.slice(0, 280)"
                 ></p>
                 <h5 id="seeMore" @click="seeMoreDetail(note.id)">
-                  See more...
+                  See Details...
                 </h5>
                 <Details
                   v-if="seeMore && seeDetials.id == note.id"
                   @closeDetails="closeDetails"
+                  @refreshNotesAfterEditDetails="refreshNotesAfterEditDetails"
                   :notes="note"
                 />
               </div>
@@ -95,10 +96,10 @@
               </div>
             </div>
             <div v-else>
-              <div v-if="note.note.length > 150">
+              <div v-if="note.note.length > 50">
                 <p>{{ note.note.slice(0, 400) }}...</p>
                 <h5 id="seeMore" @click="seeMoreDetail(note.id)">
-                  See more...
+                  See Details...
                 </h5>
                 <Details
                   v-if="seeMore && seeDetials.id == note.id"
@@ -242,6 +243,10 @@ export default {
       seeMore.value = false;
     };
 
+    const refreshNotesAfterEditDetails = () => {
+      getNotes(pageNo.value);
+    };
+
     const seeMoreDetail = (id) => {
       seeDetials.value.id = id;
       seeMore.value = true;
@@ -284,7 +289,125 @@ export default {
       seeMoreDetail,
       seeDetials,
       handleImportant,
+      refreshNotesAfterEditDetails,
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.card {
+  position: relative;
+  flex: 0 0 33.333333%;
+  width: 300px;
+  height: 325px;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 0.7rem 0.7rem;
+  border: 1px solid rgb(24, 64, 77);
+  border-radius: 4px;
+  background-color: rgb(14, 53, 65);
+  word-wrap: break-word;
+  h1 {
+    font-size: 18px;
+    margin-top: 3px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-wrap: break-word;
+  }
+  p {
+    color: #f1f5f9;
+    word-wrap: break-word;
+    text-align: left;
+    background-color: rgba(10, 39, 48, 0.767);
+    padding: 5px;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    line-height: 1.26rem;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  transition-duration: 0.3s;
+  box-shadow: 0 0 8px rgb(0 220 130 / 67%);
+}
+
+.card:hover {
+  box-shadow: 0 0 16px #00dc82;
+}
+
+@media (max-width: 500px) {
+  .home {
+    margin-top: 50px;
+  }
+  .important {
+    margin-top: 50px;
+  }
+  #nav {
+    display: none;
+  }
+  #navmob {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 17px;
+      color: #2c3e50;
+      margin-left: 15px;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+    a:hover {
+      color: #42b983;
+    }
+  }
+  .card {
+    margin: 10px auto;
+  }
+  .right-options {
+    input {
+      height: 25px !important;
+      width: 25px !important;
+    }
+    .option-button {
+      button {
+        height: 30px !important;
+        width: 30px !important;
+      }
+    }
+  }
+
+  #nav {
+    .right-options {
+      margin-right: 10px;
+    }
+    h1 {
+      font-size: 25px;
+    }
+  }
+
+  .msg {
+    margin-top: 60px !important;
+  }
+  #quill {
+    min-height: min-content;
+  }
+}
+
+</style>

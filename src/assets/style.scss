@@ -48,7 +48,7 @@ body {
     color: #f1f5f9;
     word-wrap: break-word;
     text-align: left;
-    background-color: rgba(10, 39, 48, 0.767);
+    // background-color: rgba(10, 39, 48, 0.767);
     padding: 5px;
     margin-top: 1px;
     margin-bottom: 5px;
@@ -335,13 +335,13 @@ body {
 }
 
 #quill {
-  // color: white !important;
-  background-color: white;
+  color: white !important;
   min-height: 250px;
   font-family: $primary-font !important;
   a {
     font-family: $primary-font !important;
   }
+  color: white !important;
 }
 
 .login-register-form-addnote {
@@ -409,14 +409,14 @@ body {
   // background-color: rgba(143, 143, 143, 0.651);
   overflow-x: scroll;
   scrollbar-color: rgba(255, 0, 0, 0);
-  background-color: #334155;
+  background-color: #0f172a;
   h1 {
     // color: #1e293b;
   }
   #detailsPost {
     padding: 10px;
     p {
-      background-color: #334155;
+      background-color: #0f172a;
       // color: #1e293b;
       max-height: max-content;
       overflow: unset;
@@ -429,7 +429,7 @@ body {
     .details {
       margin-top: 50px;
       p {
-        background-color: #334155;
+        background-color: #0f172a;
         font-size: 12px !important;
         // color: #1e293b;
         max-height: max-content;
@@ -470,12 +470,40 @@ body {
 #isIcon {
   display: flex;
   align-items: center;
-  #star{
+  #star {
     margin-left: 5px;
   }
 }
 .important {
   margin-top: 130px;
+}
+.component-editor {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0f172a;
+  input {
+    width: 98%;
+    height: 10px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+}
+.details-editor {
+  max-width: 1200px;
+  margin: 10px auto;
+}
+.details-edit-btn {
+  float: left;
+  margin: 10px 15px;
+}
+.details-edit-btn-submit {
+  float: left;
+  margin: 10px 0;
 }
 @media (max-width: 500px) {
   .home {
