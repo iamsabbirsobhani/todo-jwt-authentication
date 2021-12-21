@@ -163,7 +163,6 @@ export default {
 
     const getNotes = (page, show) => {
       showHomeNotes.value = show;
-      console.log(props.allnotes);
       if (!props.allnotes) {
         service.getNotes(page).then((res) => {
           notes.value = res;

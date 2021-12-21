@@ -21,7 +21,6 @@ class UserService {
         }
       });
     } else if (pag) {
-      console.log("pag", pag)
       let url = "https://todos-note.herokuapp.com/api/users/allnotes/";
       return fetch(url + user.id, { headers: authHeader() })
         .then((res) => res.json())
