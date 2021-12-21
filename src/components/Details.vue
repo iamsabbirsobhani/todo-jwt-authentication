@@ -12,8 +12,8 @@
         <p>{{ notes.note }}</p>
       </div>
       <div class="details">
-        <p>{{ notes.user.name }}</p>
-        <p>{{ notes.user.email }}</p>
+        <p>By: {{ notes.user.name }}</p>
+        <p>Email: {{ notes.user.email }}</p>
         <p>Created: {{ format(new Date(notes.createdAt), "PPPpp") }}</p>
         <p>Updated: {{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
@@ -24,8 +24,8 @@
         <p v-html="notes.noteHtml"></p>
       </div>
       <div class="details">
-        <p>{{ notes.user.name }}</p>
-        <p>{{ notes.user.email }}</p>
+        <p>By: {{ notes.user.name }}</p>
+        <p>Email: {{ notes.user.email }}</p>
         <p>Created: {{ format(new Date(notes.createdAt), "PPPpp") }}</p>
         <p>Updated: {{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
