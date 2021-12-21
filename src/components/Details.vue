@@ -26,8 +26,8 @@
       <div class="details">
         <p>{{ notes.user.name }}</p>
         <p>{{ notes.user.email }}</p>
-        <p>{{ format(new Date(notes.createdAt), "PPPpp") }}</p>
-        <p>{{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
+        <p>Created: {{ format(new Date(notes.createdAt), "PPPpp") }}</p>
+        <p>Updated: {{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
     </div>
   </div>
