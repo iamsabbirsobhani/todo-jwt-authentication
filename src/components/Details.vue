@@ -1,7 +1,7 @@
 <template>
   <div class="details-card">
     <div id="navbarDetails">
-      <h1>Post id: {{ notes.id }}</h1>
+      <h1>Note: #{{ notes.id }}</h1>
       <button @click="closeDetails" id="closeButton">
         <i class="fas fa-times"></i>
       </button>
@@ -24,11 +24,10 @@
         <p v-html="notes.noteHtml"></p>
       </div>
       <div class="details">
-        <p>Post id: {{ notes.id }}</p>
         <p>{{ notes.user.name }}</p>
         <p>{{ notes.user.email }}</p>
-        <p>{{ format(new Date(notes.createdAt), 'PPPppp') }}</p>
-        <p>{{ format(new Date(notes.updatedAt), 'PPPppp') }}</p>
+        <p>{{ format(new Date(notes.createdAt), "PPPpp") }}</p>
+        <p>{{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
     </div>
   </div>

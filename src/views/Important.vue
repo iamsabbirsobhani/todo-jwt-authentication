@@ -1,9 +1,13 @@
 <template>
-  <div class="home">
-    <Posts :pag="true" :imp="false" />
+  <div class="important">
+      <Posts :pag="false" :allnotes="true" :imp="true"/>
   </div>
 </template>
 
 <script setup>
 import Posts from '../components/Posts.vue'
 </script>
+
+<style>
+
+</style>

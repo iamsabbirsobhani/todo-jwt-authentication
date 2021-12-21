@@ -6,7 +6,7 @@ import axios from "axios";
 const API_URL = "https://todos-note.herokuapp.com/api/users/notes/";
 
 class UserService {
-  getNotes(page) {
+  getNotes(page, pag) {
     let user = JSON.parse(localStorage.getItem("user"));
     if (!page) {
       return authService.verifyToken(user.accessToken).then((res) => {
@@ -20,6 +20,14 @@ class UserService {
           return;
         }
       });
+    } else if (pag) {
+      console.log("pag", pag)
+      let url = "https://todos-note.herokuapp.com/api/users/allnotes/";
+      return fetch(url + user.id, { headers: authHeader() })
+        .then((res) => res.json())
+        .then((getData) => {
+          return getData;
+        });
     } else {
       let url = "https://todos-note.herokuapp.com/api/auth/notes/page/";
       return fetch(url + page, { headers: authHeader() })
@@ -46,6 +54,15 @@ class UserService {
   isNoteDone(note) {
     return axios
       .post("https://todos-note.herokuapp.com/api/isnotedone", note, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        return res;
+      });
+  }
+  isNoteImp(note) {
+    return axios
+      .post("https://todos-note.herokuapp.com/api/isnoteimp", note, {
         headers: authHeader(),
       })
       .then((res) => {

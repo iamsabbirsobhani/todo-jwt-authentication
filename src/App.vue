@@ -8,6 +8,7 @@
       <router-link v-if="loggedIn" to="/">Home</router-link>
       <router-link v-if="loggedIn" to="/addnote"><i class="fas fa-plus-circle"></i> Add note</router-link>
       <router-link v-if="!loggedIn" to="/login">Login</router-link>
+      <router-link v-if="loggedIn" to="/imp"><i class="fas fa-star"></i></router-link>
       <router-link v-if="loggedIn" @click="loggedOut" to="/login">Logout</router-link>
       <router-link v-if="!loggedIn" to="/register">Register</router-link>
     </div>
@@ -22,6 +23,7 @@
       <router-link v-if="loggedIn" to="/">Home</router-link>
       <router-link v-if="loggedIn" to="/addnote"><i class="fas fa-plus-circle"></i> Add note</router-link>
       <router-link v-if="!loggedIn" to="/login">Login</router-link>
+      <router-link v-if="loggedIn" to="/imp"><i class="fas fa-star"></i></router-link>
       <router-link v-if="loggedIn" @click="loggedOut" to="/login">Logout</router-link>
       <router-link v-if="!loggedIn" to="/register">Register</router-link>
     </div>

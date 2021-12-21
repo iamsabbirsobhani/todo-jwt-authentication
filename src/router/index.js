@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import AddNote from "../views/AddNote.vue";
+import Important from "../views/Important.vue";
 import authService from "../services/auth.service";
 
 const requiredAuth = (to, from, next) => {
@@ -32,6 +33,12 @@ const routes = [
     path: "/addnote",
     name: "AddNote",
     component: AddNote,
+    beforeEnter: requiredAuth
+  },
+  {
+    path: "/imp",
+    name: "Important",
+    component: Important,
     beforeEnter: requiredAuth
   },
   {
