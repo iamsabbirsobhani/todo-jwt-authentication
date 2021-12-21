@@ -56,6 +56,7 @@
         </div>
 
         <div v-if="info.isShow && info.id == note.id" class="info">
+          <p>Note: #{{ note.id }}</p>
           <p>Created: {{ format(new Date(note.createdAt), "PPp") }}</p>
           <p v-if="note.updatedAt > note.createdAt">
             Updated: {{ format(new Date(note.updatedAt), "PPp") }}

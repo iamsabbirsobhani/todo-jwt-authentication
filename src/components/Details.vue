@@ -14,8 +14,8 @@
       <div class="details">
         <p>{{ notes.user.name }}</p>
         <p>{{ notes.user.email }}</p>
-        <p>{{ notes.createdAt }}</p>
-        <p>{{ notes.updatedAt }}</p>
+        <p>Created: {{ format(new Date(notes.createdAt), "PPPpp") }}</p>
+        <p>Updated: {{ format(new Date(notes.updatedAt), "PPPpp") }}</p>
       </div>
     </div>
     <div v-if="notes && notes.noteHtml" id="detailsPost">
