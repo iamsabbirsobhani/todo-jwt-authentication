@@ -492,6 +492,10 @@ body {
     padding: 10px;
     margin: 10px 0;
   }
+  overflow-y: scroll;
+}
+.component-editor::-webkit-scrollbar {
+  display: block;
 }
 .details-editor {
   max-width: 1200px;
