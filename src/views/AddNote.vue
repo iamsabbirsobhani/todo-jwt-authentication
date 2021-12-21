@@ -34,7 +34,7 @@
       contentType="html"
       toolbar="full"
       v-model:content="note"
-      placeholder="type here within 500 characters..."
+      placeholder="type here..."
       id="quill"
     />
     <div>
