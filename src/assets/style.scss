@@ -509,6 +509,15 @@ body {
   float: left;
   margin: 10px 0 150px 0;
 }
+
+.tip-msg {
+  color: $primary-font-color;
+  font-size: 14px;
+}
+
+.is-loading {
+  color: #cbd5e1;
+}
 @media (max-width: 500px) {
   .home {
     margin-top: 50px;

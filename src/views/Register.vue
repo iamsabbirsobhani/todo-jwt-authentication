@@ -1,7 +1,14 @@
 <template>
-<p class="msg">Please register</p>
+  <p class="msg">Please register</p>
   <form @submit.prevent="handleRegister" class="login-register-form">
-    <input type="text" name="name" maxlength="7" v-model="name" placeholder="name" required />
+    <input
+      type="text"
+      name="name"
+      maxlength="7"
+      v-model="name"
+      placeholder="name"
+      required
+    />
     <input
       type="email"
       name="email"
@@ -17,6 +24,12 @@
     />
     <div v-if="error" class="error">
       <p>(Error!) please fill out all the fields carefully.</p>
+    </div>
+    <div class="is-loading" v-show="isLoading && !error">
+      <p>Please wait...</p>
+      <div class="tip-msg">
+        <p>Once finished registration, please login</p>
+      </div>
     </div>
     <button>Register</button>
   </form>
@@ -36,9 +49,11 @@ export default {
     const email = ref(null);
     const password = ref(null);
     const error = ref(false);
+    const isLoading = ref(false);
 
     const handleRegister = () => {
       error.value = false;
+      isLoading.value = true;
       const user = {
         name: name.value,
         email: email.value,
@@ -46,7 +61,8 @@ export default {
       };
       store.dispatch("auth/register", user).then(
         () => {
-          route.push({name: "Login"});
+          isLoading.value = true;
+          route.push({ name: "Login" });
         },
         (err) => {
           error.value = true;
@@ -55,7 +71,7 @@ export default {
       );
     };
 
-    return { name, email, password, handleRegister, error };
+    return { name, email, password, handleRegister, error, isLoading };
   },
 };
 </script>
