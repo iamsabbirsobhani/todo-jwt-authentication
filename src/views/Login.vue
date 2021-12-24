@@ -13,6 +13,9 @@
     <div v-if="error" class="error">
       <p>name or password is incorrect</p>
     </div>
+    <div class="is-loading" v-show="isLoading && !error">
+      <p>Please wait...</p>
+    </div>
     <button>Login</button>
   </form>
 </template>
@@ -28,10 +31,12 @@ export default {
 
     const name = ref(null);
     const error = ref(false);
+    const isLoading = ref(false);
     const password = ref(null);
 
     const handleLogin = () => {
       error.value = false;
+      isLoading.value = true;
       let user = {
         name: name.value,
         password: password.value,
@@ -39,6 +44,7 @@ export default {
 
       store.dispatch("auth/login", user).then(
         () => {
+          isLoading.value = true;
           route.push("/");
         },
         (err) => {
@@ -53,6 +59,7 @@ export default {
       name,
       password,
       error,
+      isLoading,
     };
   },
 };
