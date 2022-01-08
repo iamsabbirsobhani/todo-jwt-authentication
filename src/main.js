@@ -19,12 +19,16 @@ import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-
+import PrimeVue from 'primevue/config';
+import "primevue/resources/themes/lara-dark-teal/theme.css";
+import "primevue/resources/primevue.min.css"
+import "primeicons/primeicons.css"
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.component("QuillEditor", QuillEditor);
 app.use(ElementPlus);
+app.use(PrimeVue);
 app.use(store);
 app.use(router);
 app.mount("#app");

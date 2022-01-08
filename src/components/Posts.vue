@@ -77,10 +77,7 @@
             <h1>{{ note.title }}</h1>
             <div v-if="note.noteHtml">
               <div v-if="note.noteHtml.length > 50">
-                <p
-                  id="noteHtml"
-                  v-html="note.noteHtml.slice(0, 280)"
-                ></p>
+                <p id="noteHtml" v-html="note.noteHtml.slice(0, 280)"></p>
                 <h5 id="seeMore" @click="seeMoreDetail(note.id)">
                   See Details...
                 </h5>
@@ -118,13 +115,21 @@
   </div>
   <Spinner v-else />
   <div class="pagination" v-if="pag && notes">
-    <a v-for="(page, index) in notes.page" :key="page" style="color: white">
+    <!-- <a v-for="(page, index) in notes.page" :key="page" style="color: white">
       <div class="pages" @click="handlePage(index)">
         <div class="page">
           {{ index + 1 }}
         </div>
       </div>
-    </a>
+    </a> -->
+    <Paginator
+      class="paginator"
+      v-if="notes"
+      @click="handlePage"
+      :rows="1"
+      :totalRecords="notes.page"
+      v-model:first="first"
+    ></Paginator>
   </div>
 </template>
 
@@ -136,9 +141,10 @@ import { format } from "date-fns";
 import Spinner from "../components/Spinner.vue";
 import EditCard from "../components/EditCard.vue";
 import Details from "../components/Details.vue";
+import Paginator from "primevue/paginator";
 export default {
   props: ["imp", "pag", "allnotes"],
-  components: { Spinner, EditCard, Details },
+  components: { Spinner, EditCard, Details, Paginator },
   name: "Home",
   setup(props) {
     const notes = ref(null);
@@ -233,10 +239,13 @@ export default {
 
       showEditCard.value.temp = id;
     };
+    const first = ref(0);
 
-    const handlePage = (page) => {
-      pageNo.value = page;
-      getNotes(page);
+    const handlePage = (event) => {
+      if (!event.target.classList.contains("p-paginator")) {
+        pageNo.value = first.value;
+        getNotes(first.value);
+      }
     };
 
     const closeDetails = () => {
@@ -271,6 +280,7 @@ export default {
     };
 
     return {
+      first,
       notes,
       done,
       handleDone,
@@ -296,6 +306,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.paginator {
+  background-color: rgb(14, 53, 65);
+}
 .card {
   position: relative;
   flex: 0 0 33.333333%;
@@ -409,5 +422,4 @@ export default {
     min-height: min-content;
   }
 }
-
 </style>
