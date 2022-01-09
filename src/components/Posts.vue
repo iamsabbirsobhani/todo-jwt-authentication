@@ -124,7 +124,7 @@
     </a> -->
     <Paginator
       class="paginator"
-      v-if="notes"
+      v-if="notes.page"
       @click="handlePage"
       :rows="1"
       :totalRecords="notes.page"
