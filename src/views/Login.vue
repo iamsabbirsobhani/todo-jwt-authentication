@@ -1,7 +1,7 @@
 <template>
   <p class="msg">Please login first</p>
   <form @submit.prevent="handleLogin" class="login-register-form home">
-    <input type="text" name="name" v-model="name" placeholder="name" required />
+    <input type="text" name="name" v-model="name" placeholder="user name" required />
     <!-- <input type="email" name="email" v-model="email" placeholder="email" required> -->
     <input
       type="password"

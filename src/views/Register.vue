@@ -6,7 +6,7 @@
       name="name"
       maxlength="7"
       v-model="name"
-      placeholder="name"
+      placeholder="user name"
       required
     />
     <input
@@ -24,6 +24,7 @@
     />
     <div v-if="error" class="error">
       <p>(Error!) please fill out all the fields carefully.</p>
+      <p>(Error!) duplicate "user name" or "email" not supported.</p>
     </div>
     <div class="is-loading" v-show="isLoading && !error">
       <p>Please wait...</p>
@@ -76,4 +77,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

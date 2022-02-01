@@ -518,6 +518,11 @@ body {
 .is-loading {
   color: #cbd5e1;
 }
+
+input::-webkit-input-placeholder {
+  color: #4b5563f1;
+}
+
 @media (max-width: 500px) {
   .home {
     margin-top: 50px;
