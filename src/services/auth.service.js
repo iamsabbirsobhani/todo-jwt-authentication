@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://todos-note.herokuapp.com/api/auth/";
+// const API_URL = "https://todos-note.herokuapp.com/api/auth/";
+const API_URL = "https://todo-note.onrender.com/api/auth/";
 
 class AuthService {
   login(user) {

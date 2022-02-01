@@ -3,7 +3,10 @@ import authHeader from "./auth-header";
 import authService from "./auth.service";
 import axios from "axios";
 
-const API_URL = "https://todos-note.herokuapp.com/api/users/notes/";
+// const API = "https://todos-note.herokuapp.com/";
+const API = "https://todo-note.onrender.com/";
+const API_URL = "https://todo-note.onrender.com/api/users/notes/";
+// const API_URL = "https://todos-note.herokuapp.com/api/users/notes/";
 
 class UserService {
   getNotes(page, pag) {
@@ -21,14 +24,14 @@ class UserService {
         }
       });
     } else if (pag) {
-      let url = "https://todos-note.herokuapp.com/api/users/allnotes/";
+      let url = API + "api/users/allnotes/";
       return fetch(url + user.id, { headers: authHeader() })
         .then((res) => res.json())
         .then((getData) => {
           return getData;
         });
     } else {
-      let url = "https://todos-note.herokuapp.com/api/auth/notes/page/";
+      let url = API + "api/auth/notes/page/";
       return fetch(url + page, { headers: authHeader() })
         .then((res) => res.json())
         .then((getData) => {
@@ -42,7 +45,7 @@ class UserService {
     newNote.userId = user.id;
     newNote.done = false;
     return axios
-      .post("https://todos-note.herokuapp.com/api/addnote", newNote, {
+      .post(API + "api/addnote", newNote, {
         headers: authHeader(),
       })
       .then((res) => {
@@ -52,7 +55,7 @@ class UserService {
 
   isNoteDone(note) {
     return axios
-      .post("https://todos-note.herokuapp.com/api/isnotedone", note, {
+      .post(API + "api/isnotedone", note, {
         headers: authHeader(),
       })
       .then((res) => {
@@ -61,7 +64,7 @@ class UserService {
   }
   isNoteImp(note) {
     return axios
-      .post("https://todos-note.herokuapp.com/api/isnoteimp", note, {
+      .post(API + "api/isnoteimp", note, {
         headers: authHeader(),
       })
       .then((res) => {
@@ -69,7 +72,7 @@ class UserService {
       });
   }
   deleteNote(note) {
-    return fetch("https://todos-note.herokuapp.com/api/deletenote/" + note.id, {
+    return fetch(API + "api/deletenote/" + note.id, {
       headers: authHeader(),
     })
       .then((res) => res.json())
@@ -80,7 +83,7 @@ class UserService {
 
   update(note) {
     return axios
-      .post("https://todos-note.herokuapp.com/api/update/note", note, {
+      .post(API + "api/update/note", note, {
         headers: authHeader(),
       })
       .then((res) => {
