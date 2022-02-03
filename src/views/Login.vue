@@ -1,7 +1,16 @@
 <template>
-  <p class="msg">Please login first</p>
+  <p class="msg" v-if="!store.state.registrationSuccessMsg">Please login</p>
+  <p class="msg-login-first" v-else>
+    {{ store.state.registrationSuccessMsg }}!
+  </p>
   <form @submit.prevent="handleLogin" class="login-register-form home">
-    <input type="text" name="name" v-model="name" placeholder="user name" required />
+    <input
+      type="text"
+      name="name"
+      v-model="name"
+      placeholder="user name"
+      required
+    />
     <!-- <input type="email" name="email" v-model="email" placeholder="email" required> -->
     <input
       type="password"
@@ -60,9 +69,31 @@ export default {
       password,
       error,
       isLoading,
+      store,
     };
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.msg-login-first {
+  position: relative;
+  margin-top: 100px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f43f5e;
+  text-shadow: 1px 1px #faf6f7;
+}
+.msg-login-first::before {
+  content: "";
+  height: 50px;
+  width: 90px;
+  border-radius: 4px;
+  position: absolute;
+  background: #be123c;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: rotate3d(9, -1, 1, 130deg);
+  box-shadow: 1px 1px 10px gray;
+  z-index: -1;
+}
+</style>

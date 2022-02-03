@@ -61,7 +61,8 @@ export default {
         password: password.value,
       };
       store.dispatch("auth/register", user).then(
-        () => {
+        (res) => {
+          store.commit('setRegistrationSuccessMsg', res.action)
           isLoading.value = true;
           route.push({ name: "Login" });
         },

@@ -142,11 +142,14 @@ import Spinner from "../components/Spinner.vue";
 import EditCard from "../components/EditCard.vue";
 import Details from "../components/Details.vue";
 import Paginator from "primevue/paginator";
+import { useStore } from "vuex";
+
 export default {
   props: ["imp", "pag", "allnotes"],
   components: { Spinner, EditCard, Details, Paginator },
   name: "Home",
   setup(props) {
+    const store = useStore();
     const notes = ref(null);
     const showHomeNotes = ref(true);
     const seeMore = ref(false);
@@ -212,6 +215,7 @@ export default {
 
     onMounted(() => {
       getNotes();
+      store.commit("setRegistrationSuccessMsg", null);
     });
 
     const noteid = ref(null);
