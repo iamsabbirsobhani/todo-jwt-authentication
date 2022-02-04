@@ -78,22 +78,27 @@ export default {
 <style lang="scss" scoped>
 .msg-login-first {
   position: relative;
-  margin-top: 100px;
+  margin-top: 120px;
   font-size: 22px;
   font-weight: 800;
-  color: #f43f5e;
-  text-shadow: 1px 1px #faf6f7;
+  color: #fbbf24;
+  text-shadow: 1px 1px #fde68a;
 }
 .msg-login-first::before {
   content: "";
-  height: 50px;
-  width: 90px;
+  height: 2px;
+  width: 50px;
   border-radius: 4px;
   position: absolute;
-  background: #be123c;
+  background: #4ade80;
   transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: rotate3d(9, -1, 1, 130deg);
   box-shadow: 1px 1px 10px gray;
   z-index: -1;
+}
+
+@media (max-width: 500px) {
+  .msg-login-first {
+    margin-top: 60px !important;
+  }
 }
 </style>
