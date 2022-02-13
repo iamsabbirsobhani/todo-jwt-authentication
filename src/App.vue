@@ -55,8 +55,9 @@ const route = useRouter();
 const loggedIn = computed(() => {
   return store.state.auth.status.loggedIn;
 });
+
 const name = computed(() => {
-  return store.state.auth.name;
+  return store.state.auth.user.name;
 });
 
 const loggedOut = () => {
