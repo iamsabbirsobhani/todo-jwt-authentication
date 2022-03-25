@@ -22,8 +22,12 @@
     <div v-if="error" class="error">
       <p>name or password is incorrect</p>
     </div>
-    <div class="is-loading" v-show="isLoading && !error">
+    <div class="is-loading" v-if="isLoading && !error">
       <p>Please wait...</p>
+    </div>
+    <div class="error-alert" style="color: white" v-if="ifError">
+      {{ ifError.data.message }}
+
     </div>
     <button>Login</button>
   </form>
@@ -42,25 +46,39 @@ export default {
     const error = ref(false);
     const isLoading = ref(false);
     const password = ref(null);
+    const ifError = ref(null);
 
     const handleLogin = () => {
       error.value = false;
       isLoading.value = true;
+      ifError.value = null;
+
       let user = {
         name: name.value,
         password: password.value,
       };
 
-      store.dispatch("auth/login", user).then(
-        () => {
-          isLoading.value = true;
-          route.push("/");
-        },
-        (err) => {
-          error.value = true;
-          console.log(err);
-        }
-      );
+      store
+        .dispatch("auth/login", user)
+        .then(
+          (res) => {
+            isLoading.value = false;
+            if (res.response !== undefined && res.response.status !== 200) {
+              // console.log(res.response);
+              ifError.value = res.response;
+            }
+            route.push("/");
+          },
+          (err) => {
+            isLoading.value = false;
+            error.value = true;
+            console.log(err);
+          }
+        )
+        .catch((error) => {
+
+          console.log(error);
+        });
     };
 
     return {
@@ -70,6 +88,7 @@ export default {
       error,
       isLoading,
       store,
+      ifError,
     };
   },
 };

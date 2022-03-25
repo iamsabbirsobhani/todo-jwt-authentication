@@ -15,7 +15,11 @@ class AuthService {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
 
-        return response.data;
+        return response;
+      })
+      .catch((error) => {
+        console.log(error)
+        return error;
       });
   }
 
@@ -28,7 +32,10 @@ class AuthService {
       name: user.name,
       email: user.email,
       password: user.password,
-    });
+    }).catch(error => {
+      console.log(error)
+      return error;
+    })
   }
 
   verifyToken() {

@@ -12,23 +12,31 @@ class UserService {
   getNotes(page, pag) {
     let user = JSON.parse(localStorage.getItem("user"));
     if (!page) {
-      return authService.verifyToken(user.accessToken).then((res) => {
-        if (res.data) {
-          return fetch(API_URL + user.id, { headers: authHeader() })
-            .then((res) => res.json())
-            .then((getData) => {
-              return getData;
-            });
-        } else {
-          return;
-        }
-      });
+      return authService
+        .verifyToken(user.accessToken)
+        .then((res) => {
+          if (res.data) {
+            return fetch(API_URL + user.id, { headers: authHeader() })
+              .then((res) => res.json())
+              .then((getData) => {
+                return getData;
+              });
+          } else {
+            return;
+          }
+        })
+        .catch((error) => {
+          return error;
+        });
     } else if (pag) {
       let url = API + "api/users/allnotes/";
       return fetch(url + user.id, { headers: authHeader() })
         .then((res) => res.json())
         .then((getData) => {
           return getData;
+        })
+        .catch((error) => {
+          return error;
         });
     } else {
       let url = API + "api/auth/notes/page/";
@@ -36,6 +44,9 @@ class UserService {
         .then((res) => res.json())
         .then((getData) => {
           return getData;
+        })
+        .catch((error) => {
+          return error;
         });
     }
   }
@@ -50,6 +61,9 @@ class UserService {
       })
       .then((res) => {
         return res;
+      })
+      .catch((error) => {
+        return error;
       });
   }
 
@@ -60,6 +74,9 @@ class UserService {
       })
       .then((res) => {
         return res;
+      })
+      .catch((error) => {
+        return error;
       });
   }
   isNoteImp(note) {
@@ -69,6 +86,9 @@ class UserService {
       })
       .then((res) => {
         return res;
+      })
+      .catch((error) => {
+        return error;
       });
   }
   deleteNote(note) {
@@ -78,6 +98,9 @@ class UserService {
       .then((res) => res.json())
       .then((getData) => {
         return getData;
+      })
+      .catch((error) => {
+        return error;
       });
   }
 
@@ -88,6 +111,9 @@ class UserService {
       })
       .then((res) => {
         return res;
+      })
+      .catch((error) => {
+        return error;
       });
   }
 }
