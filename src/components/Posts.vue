@@ -76,7 +76,7 @@
           <div v-else>
             <h1>{{ note.title }}</h1>
             <div v-if="note.noteHtml">
-              <div v-if="note.noteHtml.length > 50">
+              <div v-if="note.noteHtml.length > 1">
                 <p id="noteHtml" v-html="note.noteHtml.slice(0, 280)"></p>
                 <h5 id="seeMore" @click="seeMoreDetail(note.id)">
                   See Details...
@@ -93,7 +93,7 @@
               </div>
             </div>
             <div v-else>
-              <div v-if="note.note.length > 50">
+              <div v-if="note.note.length > 1">
                 <p>{{ note.note.slice(0, 400) }}...</p>
                 <h5 id="seeMore" @click="seeMoreDetail(note.id)">
                   See Details...
